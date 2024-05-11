@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        line-height: 1.6;
+        background-color: #f4f4f4;
+        color: #333;
+    }
+
+    section {
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
+
+    h2 {
+        color: #007bff;
+        margin-top: 0;
+    }
+
+    h3 {
+        color: #007bff;
+        margin-bottom: 10px;
+    }
+
+    p {
+        margin-bottom: 15px;
+        text-align: justify;
+    }
+
+    pre {
+        background-color: #f8f9fa;
+        padding: 15px;
+        border-radius: 5px;
+        overflow-x: auto;
+    }
+
+    code {
+        font-family: Consolas, monospace;
+        color: #333;
+    }
+
+    input[type="number"] {
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        width: 100px;
+    }
+
+    input[type="button"] {
+        padding: 8px 15px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+
+    input[type="button"]:hover {
+        background-color: #0056b3;
+    }
+
+    input[type="button"]:active {
+        background-color: #004080;
+    }
+</style>
+<body>
+    <section>
+        <h2>Introduction</h2>
+        <p>
+            Bloom Filter is a probabilistic data structure that is used to determine the membership of an element in a
+            set of
+            elements.
+
+            It is probabilistic because it can produce false-positive matches (The data structure can return the result
+            saying an
+            element is possibly present in the set which may not be 100% accurate), but it cannot produce
+            false-negatives (If the
+            data structure returns the result saying an element is not present, it is 100% accurate).
+        </p>
+
+        <h3>Data Structures Used</h3>
+        <p>The primary data structure used in Bloom Filter is a Bit Vector. The initial state of the Bit Vector will be
+            all empty
+            (0s). Each Bloom Filter is associated with k hash functions whose job is to accept input and the input is
+            passed through
+            each of the k hash function and generated bit indices are set to 1 in the Bit Vector.
+        </p>
+
+        <section>
+            <h2>Implementation in Java</h2>
+            <pre><code>
+                /*
+                * Java Program to Implement Bloom Filter
+                */
+                
+                import java.util.*;
+                import java.security.*;
+                import java.math.*;
+                import java.nio.*;
+                
+                /* Class BloomFilter */
+                class BloomFilter
+                {
+                private byte[] set;
+                private int keySize, setSize, size;
+                private MessageDigest md;
+                
+                /* Constructor */
+                public BloomFilter(int capacity, int k)
+                {
+                setSize = capacity;
+                set = new byte[setSize];
+                keySize = k;
+                size = 0;
+                try
+                {
+                md = MessageDigest.getInstance("MD5");
+                }
+                catch (NoSuchAlgorithmException e)
+                {
+                throw new IllegalArgumentException("Error : MD5 Hash not found");
+                }
+                }
+                /* Function to clear bloom set */
+                public void makeEmpty()
+                {
+                set = new byte[setSize];
+                size = 0;
+                try
+                {
+                md = MessageDigest.getInstance("MD5");
+                }
+                catch (NoSuchAlgorithmException e)
+                {
+                throw new IllegalArgumentException("Error : MD5 Hash not found");
+                }
+                }
+                /* Function to check is empty */
+                public boolean isEmpty()
+                {
+                return size == 0;
+                }
+                /* Function to get size of objects added */
+                public int getSize()
+                {
+                return size;
+                }
+                /* Function to get hash - MD5 */
+                private int getHash(int i)
+                {
+                md.reset();
+                byte[] bytes = ByteBuffer.allocate(4).putInt(i).array();
+                md.update(bytes, 0, bytes.length);
+                return Math.abs(new BigInteger(1, md.digest()).intValue()) % (set.length - 1);
+                }
+                /* Function to add an object */
+                public void add(Object obj)
+                {
+                int[] tmpset = getSetArray(obj);
+                for (int i : tmpset)
+                set[i] = 1;
+                size++;
+                }
+                /* Function to check is an object is present */
+                public boolean contains(Object obj)
+                {
+                int[] tmpset = getSetArray(obj);
+                for (int i : tmpset)
+                if (set[i] != 1)
+                return false;
+                return true;
+                }
+                /* Function to get set array for an object */
+                private int[] getSetArray(Object obj)
+                {
+                int[] tmpset = new int[keySize];
+                tmpset[0] = getHash(obj.hashCode());
+                for (int i = 1; i < keySize; i++) tmpset[i]=(getHash(tmpset[i - 1])); return tmpset; } } 
+                /* Class BloomFilterTest */
+                    public class BloomFilterTest { 
+                        public static void main(String[] args) { 
+                            Scanner scan=new Scanner(System.in);
+                            System.out.println("Bloom Filter Test\n");
+                            System.out.println("Enter set capacity and key size"); 
+                            BloomFilter bf=new BloomFilter(scan.nextInt() , scan.nextInt()); 
+                            char ch; /* Perform bloom filter operations */ 
+                            do {
+                                System.out.println("\nBloomFilter Operations\n"); 
+                                System.out.println("1. insert ");
+                                System.out.println(" 2. contains"); 
+                                System.out.println("3. check empty"); 
+                                System.out.println("4. clear");
+                                 System.out.println("5. size"); 
+                                 int choice=scan.nextInt(); 
+                                 switch (choice) { 
+                                    case 1 : System.out.println("Enter integer element to insert"); 
+                                    bf.add( new Integer(scan.nextInt()) ); 
+                                    break; 
+                                    case 2 : System.out.println("Enter integer element to search"); 
+                                    System.out.println("Search result : "+ bf.contains( new Integer(scan.nextInt()) ));
+                                    break;                                          
+                                    case 3 : 
+                                    System.out.println(" Empty status="+ bf.isEmpty());
+                                    break;
+                                    case 4 : 
+                                    System.out.println(" \nBloom set Cleared"); bf.makeEmpty(); break; case 5 : System.out.println("\nSize="+ bf.getSize() );
+                                    break;            
+                                    default : 
+                                    System.out.println(" Wrong Entry \n ");
+                                     break;   
+                            }    
+                 
+                            System.out.println(" \nDo you want to continue (Type y or n) \n"); 
+                            ch=scan.next().charAt(0); } 
+                            while(ch=='Y' || ch=='y' ); 
+                        } }
+            </code></pre>
+        </section>
+    </section>
+</body>
+
+</html>
