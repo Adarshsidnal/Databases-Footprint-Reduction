@@ -5,104 +5,116 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        section {
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #007bff;
+            margin-top: 0;
+        }
+
+        h3 {
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        pre {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+
+        code {
+            font-family: Consolas, monospace;
+            color: #333;
+        }
+
+        input[type="number"] {
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            width: 100px;
+        }
+
+        input[type="button"] {
+            padding: 8px 15px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        input[type="button"]:hover {
+            background-color: #0056b3;
+        }
+
+        input[type="button"]:active {
+            background-color: #004080;
+        }
+    </style>
 </head>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        line-height: 1.6;
-        background-color: #f4f4f4;
-        color: #333;
-    }
-
-    section {
-        padding: 20px;
-        background-color: #fff;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        margin-bottom: 20px;
-    }
-
-    h2 {
-        color: #007bff;
-        margin-top: 0;
-    }
-
-    h3 {
-        color: #007bff;
-        margin-bottom: 10px;
-    }
-
-    p {
-        margin-bottom: 15px;
-        text-align: justify;
-    }
-
-    pre {
-        background-color: #f8f9fa;
-        padding: 15px;
-        border-radius: 5px;
-        overflow-x: auto;
-    }
-
-    code {
-        font-family: Consolas, monospace;
-        color: #333;
-    }
-
-    input[type="number"] {
-        padding: 5px;
-        border: 1px solid #ccc;
-        border-radius: 3px;
-        width: 100px;
-    }
-
-    input[type="button"] {
-        padding: 8px 15px;
-        background-color: #007bff;
-        color: #fff;
-        border: none;
-        border-radius: 3px;
-        cursor: pointer;
-    }
-
-    input[type="button"]:hover {
-        background-color: #0056b3;
-    }
-
-    input[type="button"]:active {
-        background-color: #004080;
-    }
-</style>
 
 <body>
     <section>
         <h2>Introduction</h2>
         <p>
-        B+ trees offer significant value by providing efficient data retrieval in block-oriented storage applications like file
-        systems and databases. A B+ tree is nothing more than a tree (with a particularly high fanout or order, which we shall
-        refer to as m) that satisfies the following conditions:
-        
-        An internal node (nodes that aren't the root or leaves) must have a number of children d such that ⌈m/2⌉ ≤ d ≤ m
-        The root node may have at least 2 children and up to m children
-        The number of keys k that an internal node may carry is ⌈m/2⌉ - 1 ≤ k ≤ m - 1
-        Leaf nodes have no children, but the number of dictionary pairs k that a single leaf node may carry is ⌈m/2⌉ - 1 ≤ k ≤ m
-        - 1
-        A B+ tree is similar to a B tree except that all the dictionary pairs lie in the leaf nodes.
+            B+ trees offer significant value by providing efficient data retrieval in block-oriented storage
+            applications like
+            file systems and databases. A B+ tree is nothing more than a tree (with a particularly high fanout or order,
+            which we
+            shall refer to as m) that satisfies the following conditions:
         </p>
+        <ul>
+            <li>An internal node (nodes that aren't the root or leaves) must have a number of children d such that ⌈m/2⌉
+                ≤ d ≤ m.</li>
+            <li>The root node may have at least 2 children and up to m children.</li>
+            <li>The number of keys k that an internal node may carry is ⌈m/2⌉ - 1 ≤ k ≤ m - 1.</li>
+            <li>Leaf nodes have no children, but the number of dictionary pairs k that a single leaf node may carry is
+                ⌈m/2⌉ - 1 ≤ k ≤ m - 1.</li>
+            <li>A B+ tree is similar to a B tree except that all the dictionary pairs lie in the leaf nodes.</li>
+        </ul>
 
-        <h3>Here is the impl of B+ trees <a href="https://github.com/Adarshsidnal/">Click Here</a></h3>
-        <p>For the program to work properly, ensure that the input_file follows the format:
-        
-        The first line must contain Initialize(m) where m is the order of the B+ tree
-        All subsequent lines may contain only the following operations:
-        Insert(key, value) where key is an integer and value is a floating point number
-        Delete(key) where key is the key of the dictionary pair you would like to delete
-        Search(key) where key is the key of the dictionary pair whose value you would like to find
-        Search(lowerBound, upperBound) where all values of dictionary pairs whose keys fall within lowerBound ≤ key ≤ upperBound
-        will be recorded
-        Output for each search query will be recorded within a file titled output_file.txt.
+        <h3>Here is the implementation of B+ trees <a
+                href="https://github.com/Adarshsidnal/Databases-Footprint-Reduction/blob/main/bplustree.java">Click
+                Here</a></h3>
+        <p>
+            For the program to work properly, ensure that the input_file follows the format:
+        </p>
+        <ul>
+            <li>The first line must contain Initialize(m) where m is the order of the B+ tree.</li>
+            <li>All subsequent lines may contain only the following operations:</li>
+            <ul>
+                <li>Insert(key, value) where key is an integer and value is a floating point number.</li>
+                <li>Delete(key) where key is the key of the dictionary pair you would like to delete.</li>
+                <li>Search(key) where key is the key of the dictionary pair whose value you would like to find.</li>
+                <li>Search(lowerBound, upperBound) where all values of dictionary pairs whose keys fall within
+                    lowerBound ≤ key ≤ upperBound will be recorded.</li>
+            </ul>
+        </ul>
+        <p>
+            Output for each search query will be recorded within a file titled output_file.txt.
         </p>
     </section>
 </body>
