@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        section {
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #007bff;
+            margin-top: 0;
+        }
+
+        h3 {
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        pre {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+
+        code {
+            font-family: Consolas, monospace;
+            color: #333;
+        }
+
+        input[type="number"] {
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            width: 100px;
+        }
+
+        input[type="button"] {
+            padding: 8px 15px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        input[type="button"]:hover {
+            background-color: #0056b3;
+        }
+
+        input[type="button"]:active {
+            background-color: #004080;
+        }
+    </style>
+</head>
+
+<body>
+    <section>
+        <h2>Lossless Compression Algorithms</h2>
+        <h2>LZ-78 (Lempel-Ziv 78) Data Compression Algorithm</h2>
+        <p>
+            These algorithms compress data without any loss of information, making them ideal for text, executables, and other data
+            where exact replication is essential.
+
+            The LZ-78 algorithm uses a dictionary-based approach to compress data. It maintains a dictionary of previously
+            encountered patterns and represents new patterns by referencing entries in the dictionary.
+            
+            The provided code includes two main functionalities: compression and decompression.
+
+            <h3>Compression</h3>
+            The LZ78compress method in the lZ78 class performs the compression process. It takes a string str as input and generates
+            a vector of tags representing the compressed data. The algorithm scans the input string character by character, building
+            patterns and adding them to the dictionary. Whenever a new pattern is encountered, it is added to the dictionary, and a
+            tag is created consisting of a pointer to the pattern's index in the dictionary and the next character in the input
+            string. These tags are stored in the tags vector.
+            
+            The compressed data size is printed to the console, including both the original size (in bits) and the compressed size
+            (in bits).
+            
+            <h3>Decompression</h3>
+            The LZ78decompress method in the lZ78 class performs the decompression process. It takes a vector of tags as input and
+            returns the decompressed string. The algorithm iterates through the tags, interpreting each tag to reconstruct the
+            original data. It uses the dictionary to retrieve patterns based on the provided pointers and appends the characters to
+            the result string.
+            
+            The decompressed string is printed to the console.
+
+            <h3>Usage</h3>
+            The code includes a main method that provides a simple command-line user interface for compression and decompression.
+            Upon running the program, the user is prompted to select either compression or decompression.
+
+            <h4>For compression:</h4>
+            <ul>
+              <li>The input file path is set to "Compression\\input.txt".</li>
+               <li>compressed output is written to "Compression\\compressed.txt".</li> 
+            </ul>
+            
+            <h4>For decompression:</h4>
+            <ul>
+                <li>The decompressed output is written to "DeCompression\\decompressed.txt".</li>
+                <li>The user is prompted to enter the number of tags to process.</li>
+                <li>The user is then prompted to enter the tags in the format <index, character></li>
+            </ul>
+        </p>
+        <h3>Here is the implementation of Algorithm<a
+                href="../Datacompression/lZ78.java"> <br>  Click Here<br></a></h3>
+    </section>
+</body>
+
+</html>
