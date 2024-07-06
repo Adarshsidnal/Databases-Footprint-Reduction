@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Deduplication Project</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        section {
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #007bff;
+            margin-top: 0;
+        }
+
+        h3 {
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        pre {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+
+        code {
+            font-family: Consolas, monospace;
+            color: #333;
+        }
+
+        input[type="number"] {
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            width: 100px;
+        }
+
+        input[type="button"] {
+            padding: 8px 15px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        input[type="button"]:hover {
+            background-color: #0056b3;
+        }
+
+        input[type="button"]:active {
+            background-color: #004080;
+        }
+    </style>
+</head>
+
+<body>
+    <section>
+        <h2>Data Deduplication Project</h2>
+        <p>
+            This is a data deduplication project implemented on the basis of client-server architecture. The
+            <code>servercli</code> folder acts as the server and the <code>client</code> folder as the client (the
+            client can interact with the server from any machine in the network).
+        </p>
+        <p>
+            The client provides the server with the files it wants to store on the server. The server is responsible for
+            the deduplication task. It only saves the file if it is unique compared to the files already on the server.
+            If not, it saves a reference to the file which is similar.
+        </p>
+        <p>
+            This task is accomplished by maintaining and storing the names of files sent by each separate client to the
+            server along with their location on the server.
+        </p>
+        <h3>Running the Server</h3>
+        <p>To run the server:</p>
+        <pre><code>g++ -o a server -lboost_serialization -lstdc++fs</code></pre>
+        <p>Command line parameter for the server is the port number, such as 8000</p>
+        <pre><code>./a 8000</code></pre>
+        <p>Note: The executable file name for the server should be of one character</p>
+        <h3>Running the Client</h3>
+        <p>To run the client:</p>
+        <pre><code>g++ -o cli cli.cpp</code></pre>
+        <p>Command line arguments for the clients are the IP address of the server and the port number (this should be
+            the same as that used in the server).</p>
+        <pre><code>./cli 127.0.0.1 8000</code></pre>
+        <p>Note: Since the same machine is working as the server, we use 127.0.0.1 (loopback address) as the IP of the
+            server.</p>
+
+        <section>
+            <h3>THE implementation of the algorithm</h3>
+            <a href="../Data-deduplication/">CLICK HERE</a>
+        </section>    
+    </section>
+</body>
+
+</html>
