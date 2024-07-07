@@ -4,129 +4,301 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>LZ-78 Data Compression Algorithm</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        /* Reset some default browser styles */
+        body,
+        div,
+        p,
+        ul,
+        li {
             margin: 0;
             padding: 0;
-            line-height: 1.6;
-            background-color: #f4f4f4;
-            color: #333;
+            box-sizing: border-box;
         }
 
-        section {
+        /* Set the font for the entire document */
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            background-color: rgb(232, 232, 238);
+            color: #333;
+            padding: 0 20px;
+        }
+
+        /* Style for the header */
+        div[name="header"] {
+            background-color: teal;
+            color: rgb(233, 233, 237);
             padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
             margin-bottom: 20px;
         }
 
-        h2 {
-            color: #007bff;
-            margin-top: 0;
-        }
-
-        h3 {
-            color: #007bff;
+        div[name="header"] h1 {
+            font-size: 24px;
             margin-bottom: 10px;
         }
 
-        p {
+        div[name="header"] .info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        div[name="header"] .info .course-info,
+        div[name="header"] .info .personal-info {
+            width: 48%;
+        }
+
+        div[name="header"] .info p {
+            margin: 5px 0;
+        }
+
+        /* Style for the description */
+        div[name="description"] {
+            padding: 20px;
+            background-color: rgb(246, 246, 250);
+            border-bottom: 1px solid #ccc;
+            border-top: 1px solid #ccc;
+            margin-bottom: 20px;
+        }
+
+        div[name="description"] p {
             margin-bottom: 15px;
-            text-align: justify;
+            line-height: 1.8;
+            font-size: 16px;
+            color: #555;
         }
 
-        pre {
-            background-color: #f8f9fa;
-            padding: 15px;
-            border-radius: 5px;
-            overflow-x: auto;
+        div[name="description"] p strong {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 18px;
+            color: teal;
         }
 
-        code {
-            font-family: Consolas, monospace;
-            color: #333;
+        /* Style for the footer */
+        div[name="footer"] {
+            background-color: teal;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            width: calc(100% - 40px);
+            /* Adjust for padding in body */
+            bottom: 0;
         }
 
-        input[type="number"] {
-            padding: 5px;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-            width: 100px;
+        /* Style for the design block */
+        div[name="description"] ul {
+            margin-left: 20px;
         }
 
-        input[type="button"] {
-            padding: 8px 15px;
-            background-color: #007bff;
+        div[name="description"] ul li {
+            margin-bottom: 10px;
+            list-style-type: disc;
+        }
+
+        div[name="description"] ul li:first-child {
+            margin-top: 10px;
+        }
+
+        div[name="description"] ul li:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Improved link style */
+        a.link {
+            color: teal;
+            text-decoration: none;
+            font-weight: bold;
+            background-color: rgb(232, 232, 238);
+            padding: 5px 10px;
+            border-radius: 4px;
+            border: 1px solid teal;
+            transition: all 0.3s ease;
+        }
+
+        a.link:hover {
+            background-color: teal;
+            color: white;
+        }
+
+        /* Improved paragraph style */
+        div[name="description"] p {
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: white;
+            border-left: 5px solid rgb(99, 162, 217);
+            border-radius: 4px;
+        }
+
+        .footer {
+            background-color: teal;
             color: #fff;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
+            padding: 20px;
+            text-align: center;
         }
 
-        input[type="button"]:hover {
-            background-color: #0056b3;
+        .hass {
+            color: teal;
         }
 
-        input[type="button"]:active {
-            background-color: #004080;
+        a {
+            display: inline-block;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            background-color: rgb(99, 162, 217);
+            padding: 5px 10px;
+            border-radius: 4px;
+            border: 1px solid rgb(99, 162, 217);
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        a:hover {
+            background-color: green;
+            border-color: green;
+        }
+
+        /* Table styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background-color: white;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #ccc;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        td {
+            background-color: #f4f4f4;
         }
     </style>
 </head>
 
 <body>
-    <section>
+    <div name="header">
+        <h1>LZ-78 Data Compression Algorithm</h1>
+        <div class="info">
+            <div class="course-info">
+                <p>Course Name: Algorithmic Problem Solving</p>
+                <p>Course Code: 23ECSE309</p>
+            </div>
+            <div class="personal-info">
+                <p>Name: Adarsh Sidnal</p>
+                <p>University: KLE Technological University, Hubballi-31</p>
+            </div>
+        </div>
+    </div>
+
+    <div name="description">
         <h2>Lossless Compression Algorithms</h2>
-        <h2>LZ-78 (Lempel-Ziv 78) Data Compression Algorithm</h2>
+        <h3>LZ-78 (Lempel-Ziv 78) Data Compression Algorithm</h3>
         <p>
-            These algorithms compress data without any loss of information, making them ideal for text, executables, and other data
+            These algorithms compress data without any loss of information, making them ideal for text, executables, and
+            other data
             where exact replication is essential.
 
-            The LZ-78 algorithm uses a dictionary-based approach to compress data. It maintains a dictionary of previously
+            The LZ-78 algorithm uses a dictionary-based approach to compress data. It maintains a dictionary of
+            previously
             encountered patterns and represents new patterns by referencing entries in the dictionary.
-            
-            The provided code includes two main functionalities: compression and decompression.
+        </p>    
 
-            <h3>Compression</h3>
-            The LZ78compress method in the lZ78 class performs the compression process. It takes a string str as input and generates
-            a vector of tags representing the compressed data. The algorithm scans the input string character by character, building
-            patterns and adding them to the dictionary. Whenever a new pattern is encountered, it is added to the dictionary, and a
-            tag is created consisting of a pointer to the pattern's index in the dictionary and the next character in the input
+            <strong>Compression</strong>
+        <p>
+            The LZ78compress method in the LZ78 class performs the compression process. It takes a string str as input
+            and generates
+            a vector of tags representing the compressed data. The algorithm scans the input string character by
+            character, building
+            patterns and adding them to the dictionary. Whenever a new pattern is encountered, it is added to the
+            dictionary, and a
+            tag is created consisting of a pointer to the pattern's index in the dictionary and the next character in
+            the input
             string. These tags are stored in the tags vector.
-            
-            The compressed data size is printed to the console, including both the original size (in bits) and the compressed size
-            (in bits).
-            
-            <h3>Decompression</h3>
-            The LZ78decompress method in the lZ78 class performs the decompression process. It takes a vector of tags as input and
-            returns the decompressed string. The algorithm iterates through the tags, interpreting each tag to reconstruct the
-            original data. It uses the dictionary to retrieve patterns based on the provided pointers and appends the characters to
-            the result string.
-            
-            The decompressed string is printed to the console.
-
-            <h3>Usage</h3>
-            The code includes a main method that provides a simple command-line user interface for compression and decompression.
-            Upon running the program, the user is prompted to select either compression or decompression.
-
-            <h4>For compression:</h4>
-            <ul>
-              <li>The input file path is set to "Compression\\input.txt".</li>
-               <li>compressed output is written to "Compression\\compressed.txt".</li> 
-            </ul>
-            
-            <h4>For decompression:</h4>
-            <ul>
-                <li>The decompressed output is written to "DeCompression\\decompressed.txt".</li>
-                <li>The user is prompted to enter the number of tags to process.</li>
-                <li>The user is then prompted to enter the tags in the format <index, character></li>
-            </ul>
         </p>
-        <h3>Here is the implementation of Algorithm<a
-                href="https://github.com/Adarshsidnal/Databases-Footprint-Reduction/tree/main/Datacompression"> <br>  Click Here<br></a></h3>
-    </section>
+
+        <strong>Decompression</strong>
+        <p>
+            The LZ78decompress method in the LZ78 class performs the decompression process. It takes a vector of tags as
+            input and
+            returns the decompressed string. The algorithm iterates through the tags, interpreting each tag to
+            reconstruct the
+            original data. It uses the dictionary to retrieve patterns based on the provided pointers and appends the
+            characters to
+            the result string.
+        </p>
+
+        <strong>Usage</strong>
+        <p>
+            The code includes a main method that provides a simple command-line user interface for compression and
+            decompression.
+            Upon running the program, the user is prompted to select either compression or decompression.
+        </p>
+
+        <h4>For compression:</h4>
+        <ul>
+            <li>The input file path is set to "Compression\\input.txt".</li>
+            <li>compressed output is written to "Compression\\compressed.txt".</li>
+        </ul>
+
+        <h4>For decompression:</h4>
+        <ul>
+            <li>The decompressed output is written to "DeCompression\\decompressed.txt".</li>
+            <li>The user is prompted to enter the number of tags to process.</li>
+            <li>The user is then prompted to enter the tags in the format <index, character>
+            </li>
+        </ul>
+        </p>
+
+        <h3>Here is the implementation of LZ-78 Algorithm <a class="link"
+                href="https://github.com/Adarshsidnal/Databases-Footprint-Reduction/tree/main/Datacompression">Click
+                Here</a></h3>
+
+        <h3>Time and Space Complexity</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Operation</th>
+                    <th>Time Complexity</th>
+                    <th>Space Complexity</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Compression</td>
+                    <td>O(n)</td>
+                    <td>O(n)</td>
+                </tr>
+                <tr>
+                    <td>Decompression</td>
+                    <td>O(n)</td>
+                    <td>O(n)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div name="footer">
+        <p>© 2024 Adarsh Sidnal - KLE Technological University, Hubballi-31</p>
+    </div>
 </body>
 
 </html>
